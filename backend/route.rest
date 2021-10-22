@@ -1,0 +1,29 @@
+GET http://localhost:4000/users
+
+###
+
+GET http://localhost:4000/users/6170f4152eead8878416e2cb
+
+
+###
+
+POST http://localhost:4000/users
+Content-Type: application/json
+
+{
+    "name":"John",
+    "email":"something@g.com"
+}
+
+
+###
+
+DELETE http://localhost:4000/users/6170f4152eead8878416e2cb
+
+###
+PATCH http://localhost:4000/users/6170f4152eead8878416e2cb
+Content-Type: application/json
+
+{
+    "name":"Ron"
+}
