@@ -1,110 +1,38 @@
 import './App.css';
 import React,{useState,useEffect} from 'react';
 
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+
+import ProjectForm from './Components/ProjectForm'
+import InternshipForm from './Components/InternshipForm'
+import Register from './Components/Register'
+import Login from './Components/Login'
+import Profile from './Components/Profile'
 
 function App() {
 
-  const [update,setUpdate] = useState(false)
-  
-  const [users,setUsers] = useState([])
-
-  const [user,setUser] = useState({})
-
-  useEffect(()=>{
-    getUsers()
-  },[])
-
-  const getUsers=()=>{
-    fetch('http://localhost:4000/users')
-      .then((response)=>response.json())
-      .then((data)=>{
-        setUsers(data);
-        console.log(data)
-      }) 
-      .catch(console.log('ERROR:in getting users')) 
-  }
-
-  const handleChange = (e)=>{
-    const {name,value} = e.target
-    setUser({...user,
-      [name]:value
-    })
-  }
-
-  const handleUpdate = (ele)=>{
-    console.log('update')
-    setUpdate(true)
-    setUser(ele)
-  }
-
-  const handleSubmit = (e)=>{
-      e.preventDefault()
-
-      var url = 'http://localhost:4000/users'
-
-      var method = 'POST'
-
-      if(update === true)
-      {
-          url = `http://localhost:4000/users/${user._id}`
-          setUpdate(false)
-          method = 'PATCH'
-      }
-      
-      fetch(url ,{
-        method: method,
-        headers:{
-            'Content-type':'application/json',
-        },
-        body:JSON.stringify(user)
-      })
-      .then((response)=> {
-          setUser({})
-          console.log('here')
-          console.log('RESPONSE IS:',response)
-          getUsers()
-      })
-      .catch(function(error){
-          console.log('ERROR:',error)
-      })
-  }
-
-  const handleDelete = (ele)=>{
-
-    fetch(`http://localhost:4000/users/${ele._id}`,{
-      method:'DELETE',
-      headers:{
-          'Content-type':'application/json',
-      },
-    })
-    .then((response)=>{
-        console.log(response)
-        getUsers()
-      }
-    )
-    .catch((err)=>console.log(err))
-  }
-
   return (
-
-    <div className="App">
-      <h1>Hello world</h1>
-
-      {users.map(function (user) {
-         return <div key={user.id}>
-            <p>{user.name}</p>
-            <button onClick={(()=>handleUpdate(user))}>Update</button>
-            <button onClick={(()=>handleDelete(user))}>Delete</button>
-          </div>
-      })}
-
-      <form onSubmit={handleSubmit}>
-        <input type="text" name = "name" onChange={handleChange} placeholder="Name" value={user?.name}/>
-        <input type="text" name = "email" onChange={handleChange} placeholder="Email" value={user?.email}/>
-        <button>Submit</button>
-      </form>
-
-    </div>
+    <Router>   
+      <div className="app">
+        <Switch>
+          <Route path="/register">
+            <Register/>
+          </Route>
+          <Route path="/login">
+            <Login/>
+          </Route>
+          <Route path="/internship">
+            <InternshipForm/>
+          </Route>
+          <Route path="/project">
+            <ProjectForm/>
+          </Route>
+          <Route path="/">
+            <Profile/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

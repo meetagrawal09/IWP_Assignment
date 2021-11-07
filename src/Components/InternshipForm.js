@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './IntershipForm.css'
+import './InternshipForm.css'
 function InternshipForm() {
     return (
         <div>
