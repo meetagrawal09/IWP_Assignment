@@ -1,0 +1,14 @@
+body{
+    /* display: flex; */
+    font-size: 20px;
+    text-align: center;
+}
+.container{
+    /* flex: 1; */
+    height: 100%;
+    padding: 5%;
+}
+.buttonclass{
+    padding: 01% 5%;
+    font-size: 20px;
+}

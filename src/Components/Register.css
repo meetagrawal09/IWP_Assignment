@@ -1,0 +1,31 @@
+.register{
+    text-align: left;
+    padding: 5%;
+    font-size: 20px;
+    /* border: 1mm solid black; */
+    width: fit-content;
+    margin: auto;
+}
+.c2{
+    text-align: center;
+    width: fit-content;
+}
+.yos{
+    text-align: left;
+    /* border: 1mm solid black; */
+    width: auto;
+    margin: 0%;
+
+}
+#rp{
+    text-align: center;
+}
+body{
+    font-size: 25px;
+    text-align: center;
+}
+#reg{
+    margin: 10% 0%;
+    padding: 1% 5%;
+    font-size: 20px;
+}

@@ -3,8 +3,11 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 
+const auth = require('../middleware/auth')
+
+
 //getting all users 
-router.get('/',async(req,res)=>{
+router.get('/',auth,async(req,res)=>{
     try{
         const users = await User.find()
         res.json(users)
@@ -26,7 +29,6 @@ router.post('/',async(req,res)=>{
         name:req.body.name,
         email:req.body.email,
     })
-
 
     try{
         const newUser = await user.save()

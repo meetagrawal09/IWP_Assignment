@@ -20,4 +20,9 @@ app.use(express.json())
 const userRouter = require('./routes/users')
 app.use('/users',userRouter)
 
+app.use('/api/auth',require('./routes/api/auth'))
+app.use('/api/user',require('./routes/api/user'))
+
+app.use('/api/project',require('./routes/api/project'))
+
 app.listen(4000,()=>console.log('Server Started'))

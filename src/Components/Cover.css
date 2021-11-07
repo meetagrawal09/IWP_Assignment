@@ -1,0 +1,10 @@
+body{
+    text-align: center;
+}
+.button{
+    margin: 10%;
+}
+.buttonclass{
+    padding: 01% 5%;
+    font-size: 150%;
+}
