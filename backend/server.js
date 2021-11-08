@@ -25,4 +25,4 @@ app.use('/api/project',require('./routes/api/project'))
 app.use('/api/internship',require('./routes/api/internship'))
 app.use('/api/tag',require('./routes/api/tag'))
 
-app.listen(4000,()=>console.log('Server Started'))
+app.listen(8000,()=>console.log('Server Started'))

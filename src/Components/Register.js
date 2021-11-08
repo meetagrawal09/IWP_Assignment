@@ -1,7 +1,46 @@
-import React from 'react'
+import React,{useState} from 'react'
+
+import {useHistory,Link} from 'react-router-dom';
 
 import './Register.css'
+
 function Register() {
+
+    const [student,setStudent] = useState({})
+
+    const handleChange=(e)=>{
+        const {name,value} = e.target
+
+        setStudent({
+            ...student,
+            [name]:value
+        })
+
+    }
+
+    const handleSubmit=(e)=>{
+        const url = 'http://127.0.0.1:8000/api/user/'
+
+        e.preventDefault()
+
+        fetch(url ,{
+                method:'POST',
+                headers:{
+                    'Content-type':'application/json',
+                    'x-auth-token':''
+                },
+                body:JSON.stringify(student)
+            })
+            .then((response)=> {
+                history.push("/login")
+                setStudent({})
+            })
+            .catch(function(error){
+                console.log('ERROR:',error)
+        })
+    }
+
+
     return (
         <div>
             <h2 id="rp">Register Page</h2>

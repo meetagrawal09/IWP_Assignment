@@ -1,9 +1,107 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
+import { Link,Redirect } from "react-router-dom";
 import profileimg from './images/def_profile.jpg'
 import './Profile.css'
 
-function Profile() {
+function Profile({id,login,handleUpdate,handleLogout,user}) {
+   
+    const [t,setTags] = useState([])
+
+    const [projects,setProjects] = useState([])
+
+    const [filterProjects,setFilterProjects] = useState([])
+
+    const [internships,setInternships] = useState([])
+
+
+    useEffect(()=>{
+        fetch('http://127.0.0.1:8000/api/tag/get-tags/')
+        .then((response)=>response.json())
+        .then((data)=>{
+            setTags(data)
+        })
+
+    },[])
+
+    useEffect(()=>{
+        fetch(`http://127.0.0.1:8000/api/project/get-projects/`)
+        .then((response)=>response.json())
+        .then((data)=>{
+            setProjects(data)
+            setFilterProjects(data)
+        })
+    },[id])
+
+    useEffect(()=>{
+        fetch(`http://127.0.0.1:8000/api/internship/get-internship/${id}/`)
+        .then((response)=>response.json())
+        .then((data)=>{
+            setInternships(data)
+        })
+    },[id])
+
+    const fetchProjects=()=>{
+        fetch(`http://127.0.0.1:8000/api/project-list/${id}/`)
+        .then((response)=>response.json())
+        .then((data)=>{
+            setProjects(data)
+        })
+    }
+
+    const fetchInters=()=>{
+        fetch(`http://127.0.0.1:8000/api/internship-list/${id}/`)
+        .then((response)=>response.json())
+        .then((data)=>{
+            setInternships(data)
+        })
+    }
+
+    const handleDelete = (type,id)=>{
+
+        fetch(`http://127.0.0.1:8000/api/delete-${type}/${id}`,{
+            method:'DELETE',
+            headers:{
+                'Content-type':'application/json',
+                'x-auth-token':''
+            },
+        })
+        .then((response)=>{
+            console.log("DELETE SUCCESS")
+            if(type === "project")
+            {
+                fetchProjects()
+            }
+            else
+            {
+                fetchInters()
+            }
+
+        })
+        .catch(function(error){
+            console.log('ERROR:',error)
+        })
+    }
+
+
+    const handleFilter=(e)=>{
+
+        const {value} = e.target
+
+        if(value==="All")
+        {
+            setFilterProjects(projects)
+        }
+        else{
+            var filteredSet = projects.filter((project)=>{
+                return t[(project.tags[0])-1]?.tag_name === value
+            })
+
+            setFilterProjects(filteredSet)
+        }
+        
+    }
+    
     return (
         <div>
             <div className="container">
@@ -45,6 +143,8 @@ function Profile() {
             </div>
         </div>
     )
+
+    
 }
 
 export default Profile
