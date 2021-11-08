@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 
 const internshipSchema = mongoose.Schema({
     user:{
-
+        type:String,
+        required:true,
+        ref:'user'
     },
     company_name:{
         type:String,

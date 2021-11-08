@@ -1,5 +1,6 @@
 import React from 'react'
 
+import profileimg from './images/def_profile.jpg'
 import './Profile.css'
 
 function Profile() {
@@ -8,7 +9,7 @@ function Profile() {
             <div className="container">
                 <div className="head">
                     <div id="head1">
-                        <img src="./images/1.jpg" alt="dp" id="image"/>
+                        <img src={profileimg} alt="dp" id="image"/>
                     </div>
                     <div id="head2">
                         <span>Name</span><br/>
@@ -25,8 +26,8 @@ function Profile() {
                             <span>Email ID</span><br/>
                         </div>
                         <div id="body12">
-                            <input type="button" value="Github Link"/>
-                            <input type="button" value="LinkedIn Link"/>
+                            <input className="btn btn-success" type="button" value="Github Link"/>
+                            <input className="btn btn-primary" type="button" value="LinkedIn Link"/>
                         </div>  
                     </div>
                     <div id="body2">

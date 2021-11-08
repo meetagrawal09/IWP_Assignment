@@ -3,18 +3,18 @@ const mongoose = require('mongoose')
 const projectSchema = mongoose.Schema({
     user_id:{
         type:String,
-        required:true
+        required:true,
     },
     title:{
         type:String,
         required:true
     },
     date_start:{
-        type:Date,
+        type:String,
         required:true
     },
     date_end:{
-        type:Date,
+        type:String,
         required:true
     },
     description:{

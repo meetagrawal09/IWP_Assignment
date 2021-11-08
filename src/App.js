@@ -8,6 +8,7 @@ import InternshipForm from './Components/InternshipForm'
 import Register from './Components/Register'
 import Login from './Components/Login'
 import Profile from './Components/Profile'
+import Cover from './Components/Cover'
 
 function App() {
 
@@ -27,8 +28,11 @@ function App() {
           <Route path="/project">
             <ProjectForm/>
           </Route>
-          <Route path="/">
+          <Route path="/profile">
             <Profile/>
+          </Route>
+          <Route path="/">
+            <Cover/>
           </Route>
         </Switch>
       </div>
