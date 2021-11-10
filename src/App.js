@@ -1,43 +1,89 @@
-import './App.css';
-import React,{useState,useEffect} from 'react';
+import React,{useState} from 'react'
+import InternshipForm from './InternshipForm'
 
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-import ProjectForm from './Components/ProjectForm'
-import InternshipForm from './Components/InternshipForm'
-import Register from './Components/Register'
-import Login from './Components/Login'
-import Profile from './Components/Profile'
-import Cover from './Components/Cover'
+
+import ProjectForm from "./ProjectForm";
+import Profile from './Profile';
+import Register from './Register';
+import Login from './Login';
+import Cover from './Cover';
 
 function App() {
+  
+
+  const [isLogin,setIsLogin] = useState(false)
+
+  const [update,setUpdate] = useState(false)
+
+  const [identity,setId] = useState(0)
+
+  const [obj,setObj] = useState({})
+
+  const [user,setUser]=useState({})
+
+  const [token,setToken] = useState()
+ 
+
+  const handleLogin=(data)=>{ 
+    if (data.token !== "")
+    {
+        setIsLogin(true)
+        setUser(data.user)
+        setToken(data.token)
+    }
+
+    console.log(data)
+
+  }
+
+  const handleUpdate = (i,instance)=>{
+    setUpdate(true)
+    setId(i)
+    setObj(instance)
+  }
+  
+  const handleNoUpdate=()=>{
+    setUpdate(false)
+    setId(0)
+    setObj({})
+  }
+
+  const handleLogout=()=>{
+    setIsLogin(false)
+    setUser({})
+
+  }
 
   return (
-    <Router>   
-      <div className="app">
-        <Switch>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/login">
-            <Login/>
-          </Route>
-          <Route path="/internship">
-            <InternshipForm/>
-          </Route>
-          <Route path="/project">
-            <ProjectForm/>
-          </Route>
-          <Route path="/profile">
-            <Profile/>
-          </Route>
-          <Route path="/">
-            <Cover/>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+    
+  <Router>   
+    <div className="app">
+      <Switch>
+        <Route path="/register">
+          <Register/>
+        </Route>
+        <Route path="/login">
+          <Login handleLogin={handleLogin} />
+        </Route>
+        <Route path="/internship">
+          <InternshipForm token={token} id={user?.id} login={isLogin} update={update} identity={identity} instance = {obj} handleNoUpdate={handleNoUpdate}/>
+        </Route>
+        <Route path="/project">
+          <ProjectForm token={token} id={user?.id} login={isLogin} update={update} identity={identity} instance = {obj} handleNoUpdate={handleNoUpdate}/>
+        </Route>
+        <Route path="/profile">
+          <Profile token={token} user={user} id={user?.id} login={isLogin} handleUpdate={handleUpdate} handleLogout={handleLogout}/>
+        </Route>
+        <Route path="/">
+          <Cover/>
+        </Route>
+      </Switch>
+    </div>
+  </Router>
+    
+  )
 }
 
-export default App;
+export default App

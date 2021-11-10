@@ -2,9 +2,10 @@ import React,{useState} from 'react'
 
 import {useHistory,Link} from 'react-router-dom'
 
-import './Login.css'
 
-function login({handleLogin}) {
+function Login({handleLogin}) {
+
+    let history = useHistory()
 
     const [msgs,setMsgs] = useState("")
     
@@ -25,25 +26,25 @@ function login({handleLogin}) {
     const handleSubmit = (e)=>{
 
         e.preventDefault()
-        console.log(login)
 
         const url = 'http://127.0.0.1:8000/api/auth/'
         fetch(url,{
             method:'POST',
             headers:{
                 'Content-type':'application/json',
-                'x-auth-token':''
             },
             body:JSON.stringify(login)
         })
         .then((response)=>response.json())
         .then((data)=>{
-            setToken(data)
+
             console.log(data)
+
+            setToken(data)
             if(token.token!=="")
             {
                 handleLogin(data)
-                history.push("/")
+                history.push("/profile")
             }
             else
             {
@@ -55,25 +56,34 @@ function login({handleLogin}) {
             console.log('ERROR:',error)
         })
 
-        localStorage.setItem("token", {token});
+        // localStorage.getItem("token")
+    }
+      
+
+    const mystyle={
+        maxWidth: "540px",
     }
 
 
     return (
-        <div>
-            <h2>Login Page</h2>
-            <div className="container">
-                <label>Email id:</label><br/>
-                <input type="text" className="username"/><br/>
-                <label>Password:</label><br/>
-                <input type="password" className = "passowrd"/>
-                <br/>
+        <div className="container shadow" style={{mystyle}}>
+            <h3 className="cover-image">Login</h3>
+            <form className="form container">
+                <div className="mb-3">
+                    <input className="form-control" type="text" name="email" placeholder="Email" onChange={handleChange}/>
+                </div>
+                <div className="mb-3">
+                    <input className="form-control" type="password" name="password" placeholder="Password" onChange={handleChange}/>
+                </div>
+                <input type="submit" value="Login" className="btn m-3 btn-sm stupo-btn-dark" onClick={handleSubmit}/>
+                
+                <p>Do not have an account,<Link to="register" className="btn m-3 btn-sm stupo-btn-dark">Register</Link></p>
+                
+                <h1>{msgs}</h1>
+            </form>
             
-            </div>
-            <button className="buttonclass">Login</button> 
-            <button className="buttonclass">Register</button>
         </div>
     )
 }
 
-export default login
+export default Login

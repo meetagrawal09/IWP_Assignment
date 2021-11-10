@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const internshipSchema = mongoose.Schema({
-    user:{
+    user_id:{
         type:String,
         required:true,
-        ref:'user'
     },
     company_name:{
         type:String,
@@ -19,11 +18,11 @@ const internshipSchema = mongoose.Schema({
         required:true
     },
     date_start:{
-        type:Date,
+        type:String,
         required:true
     },
     date_end:{
-        type:Date,
+        type:String,
         required:true
     }
 })

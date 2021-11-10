@@ -21,6 +21,10 @@ const projectSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    tag:{
+        type:String,
+        required:true
+    },
     link:{
         type:String,
         required:true

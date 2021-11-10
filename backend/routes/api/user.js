@@ -9,11 +9,11 @@ const config = require('config')
 const jwt = require('jsonwebtoken')
 
 router.post('/',(req,res)=>{
-    const { name,email,password } = req.body
+    const { name,email,password,stud_id,cgpa,description } = req.body
 
 
     //Validation
-    if(!name||!email||!password)
+    if(!name||!email||!password||!stud_id||!cgpa||!description)
         return res.status(400).json({ msg : 'Enter all fields'})
     
     User.findOne({email})
@@ -23,7 +23,10 @@ router.post('/',(req,res)=>{
         const newUser = new User({
             name,
             email,
-            password
+            password,
+            description,
+            stud_id,
+            cgpa
         })
 
         // Create Salt and Hash
@@ -47,7 +50,10 @@ router.post('/',(req,res)=>{
                                 user:{
                                     id:user.id,
                                     name:user.name,
-                                    email:user.email
+                                    email:user.email,
+                                    stud_id:user.stud_id,
+                                    cgpa:user.cgpa,
+                                    description:user.description
                                 }
                             })
                         }

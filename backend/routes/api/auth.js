@@ -38,7 +38,10 @@ router.post('/',(req,res)=>{
                         user:{
                             id:user.id,
                             name:user.name,
-                            email:user.email
+                            email:user.email,
+                            stud_id:user.stud_id,
+                            cgpa:user.cgpa,
+                            description:user.description
                         }
                     })
                 }
